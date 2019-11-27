@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MYSQL_CPP_CONN", "temp\temp.vcxproj", "{96BFC53D-AAE3-4007-93AB-0C95C01A42D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96BFC53D-AAE3-4007-93AB-0C95C01A42D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{96BFC53D-AAE3-4007-93AB-0C95C01A42D5}.Debug|Win32.Build.0 = Debug|Win32
+		{96BFC53D-AAE3-4007-93AB-0C95C01A42D5}.Release|Win32.ActiveCfg = Release|Win32
+		{96BFC53D-AAE3-4007-93AB-0C95C01A42D5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
