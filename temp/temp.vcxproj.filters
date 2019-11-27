@@ -23,5 +23,14 @@
     <ClInclude Include="Dbinfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Employee.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlQuery.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="queue.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

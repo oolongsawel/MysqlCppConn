@@ -6,54 +6,12 @@
 #include <mysql.h>
 
 #include "Dbinfo.h"
-
-
-//EMPLOYEE 테이블
-#define TABLE_NAME_EMPLOYEE "employee"
-#define SQL_CREATE_TABLE_EMPLOYEE "CREATE TABLE %s \
-    (EMPNO      CHAR(6)         NOT NULL,\
-    NAME        VARCHAR(12)     NOT NULL,\
-    DEPT        CHAR(10)                 ,\
-    AGE         INT                 ,\
-    HIREDATE    DATE                    ,\
-    SEX         CHAR(1)                 ,\
-    SALARY      DECIMAL(9,2)            ,\
-    PRIMARY KEY (EMPNO)) ENGINE = myISAM DEFAULT CHARSET = utf8"
-
-#define SQL_DROP_TABLE "DROP TABLE IF EXISTS %s"
-
-
-#define SQL_INSERT_DATA_EMPLOYEE "INSERT INTO %s \
-    (EMPNO, NAME, DEPT, AGE, HIREDATE, SEX, SALARY) values \
-('%s', '%s', '%s',%d, sysdate(), '%s', %f)"
-
-#define SQL_SELECT_DATA_EMPLOYEE "SELECT EMPNO, NAME, DEPT, HIREDATE, SEX, SALARY FROM %s "    
+#include "Employee.h"
+#include "queue.h"
+#include "sqlQuery.h"
 
 
 
-#pragma pack(1) //struct memeber alignment 를 1로 설정
-typedef struct st_employee{
-    char  EMPNO[6];
-    char  NAME[12];
-    char  DEPT[3];
-    int   AGE;
-    char  HIREDATE[12];
-    char  SEX[1];
-    float SALARY;  
-} EMPLOYEE;
-
-typedef struct st_array_employee{
-    int  row;
-    EMPLOYEE * arr_employee[1]; 
-} ARRAY_EMPLOYEE;
-
-typedef struct arr_employee{
-    int  row;
-    EMPLOYEE employees[1]; 
-} ARR_EMPLOYEE;
-
-
-#pragma pack() //struct memeber aligment 원상복구
 
 int connect();
 int close();
@@ -217,6 +175,49 @@ int select_table_employee(char * table_name){
 	return 0;
 }
 
+int LoadDataForEmployees(struct q_block * p_q_blk, int row){
+	int query_stat;
+	char buff[1024];
+	int count = row;
+    int i ;
+
+	MYSQL_RES * sql_result;
+    MYSQL_ROW sql_row;
+	
+	printf("buff size %d\n", sizeof(buff));
+	memset(buff, 0x00, sizeof(buff));
+	
+	sprintf_s(buff, SQL_SELECT_DATA_EMPLOYEE, TABLE_NAME_EMPLOYEE);
+	query_stat = mysql_query(connection, buff);
+
+	if(query_stat != 0){
+			fprintf(stderr, "Mysql query error : %s\n", mysql_error(&conn));
+			exit(1);
+	} 
+
+	sql_result = mysql_store_result(connection);
+	p_q_blk->p_employee = (ARR_EMPLOYEE *)malloc(sizeof(ARR_EMPLOYEE) + (sizeof(EMPLOYEE) * count));
+	EMPLOYEE * datas = p_q_blk->p_employee->employees;
+
+	while((sql_row = mysql_fetch_row(sql_result)) != NULL)
+	{
+		printf("%s \n", sql_row[1]);
+		strcpy(datas[i].EMPNO, sql_row[0]);
+		strcpy(datas[i].NAME, sql_row[1]);
+		strcpy(datas[i].DEPT, sql_row[2]);
+		datas[i].AGE = (int)sql_row[3];
+		strcpy(datas[i].HIREDATE, sql_row[4]);
+		strcpy(datas[i].SEX, sql_row[5]);
+		datas[i].SALARY = (int)sql_row[6];
+	i++;	
+	}
+
+	p_q_blk->p_employee->row = count;
+	mysql_free_result(sql_result);
+	
+	return 0;
+}
+
 int main(){
 	connect();
 	drop_table(TABLE_NAME_EMPLOYEE);
@@ -241,21 +242,10 @@ int main(){
 	printf("이름 %s\n", (*ptr)[1].NAME);
 	
 	insert_table_employee(*ptr,2);
-
 	select_table_employee(TABLE_NAME_EMPLOYEE);
 	
-	/*
-	ARRAY_EMPLOYEE  * arremp_ptr;
-	ARRAY_EMPLOYEE ** dptr = &arremp_ptr;
-	EMPLOYEE  ** demp = (*dptr)->arr_employee;
-	(*dptr)->row = 0;
-	add_employee2(dptr, demp , "1","maria","si",25,"190514","m",300);
-	add_employee2(dptr, demp , "2","kimukimu","cloud",27,"191115","m",300);
-	
-	printf("arr구조체 이름 %s\n", (*dptr)->arr_employee[0]->NAME);
-	printf("arr구조체 이름%s\n", (*dptr)->arr_employee[1]->NAME);
-	*/
-
-
+	struct q_block * q_blk;
+	LoadDataForEmployees(q_blk, 2);
+	printf("%s", q_blk->p_employee->employees[0].NAME);
  return 0;
 }
