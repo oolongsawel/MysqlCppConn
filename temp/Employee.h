@@ -1,24 +1,22 @@
 //Employee.h
 #pragma once
+#include "defs.h"
 
 #ifndef _EMPLOYEE_H_
 #define _EMPLOYEE_H_
 
 #pragma pack(1) //struct memeber alignment 를 1로 설정
 typedef struct st_employee{
-    char  EMPNO[6];
-    char  NAME[12];
-    char  DEPT[3];
+    char  EMPNO[SIZE_EMPNO];
+    char  NAME[SIZE_NAME];
+    char  DEPT[SIZE_DEPT];
     int   AGE;
-    char  HIREDATE[12];
-    char  SEX[1];
-    float SALARY;  
+    char  HIREDATE[SIZE_HIREDATE];
+    char  SEX[SIZE_SEX];
+    float SALARY;
+	char KEY[SIZE_KEY];
 } EMPLOYEE;
 
-typedef struct st_array_employee{
-    int  row;
-    EMPLOYEE * arr_employee[1]; 
-} ARRAY_EMPLOYEE;
 
 typedef struct arr_employee{
     int  row;

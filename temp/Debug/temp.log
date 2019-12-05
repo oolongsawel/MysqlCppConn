@@ -1,4 +1,4 @@
-﻿빌드 시작: 2019-11-28 오전 2:01:56
+﻿빌드 시작: 2019-12-06 오전 12:18:37
      1>2 노드의 "C:\Users\Sawoloong\Documents\Visual Studio 2010\Projects\temp\temp\temp.vcxproj" 프로젝트(build 대상)입니다.
      1>InitializeBuildStatus:
          "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\MYSQL_CPP_CONN.unsuccessfulbuild"을(를) 만들고 있습니다.
@@ -7,8 +7,6 @@
          main.cpp
      1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(98): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : 'sprintf' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(115): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
      1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(116): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
      1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(117): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
@@ -28,19 +26,8 @@
      1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(135): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
      1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(151): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(205): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(206): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(207): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(209): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(210): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(211): warning C4244: '=' : 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(205): warning C4700: 초기화되지 않은 'i' 지역 변수를 사용했습니다.
-     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(248): warning C4700: 초기화되지 않은 'q_blk' 지역 변수를 사용했습니다.
+     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(213): warning C4244: '=' : 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\sawoloong\documents\visual studio 2010\projects\temp\temp\main.cpp(256): warning C4700: 초기화되지 않은 'q_blk' 지역 변수를 사용했습니다.
        ManifestResourceCompile:
          모든 출력이 최신 상태입니다.
        Link:
@@ -59,4 +46,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:00.86
+경과 시간: 00:00:00.84

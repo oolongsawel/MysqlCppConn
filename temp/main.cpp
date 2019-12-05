@@ -112,7 +112,7 @@ int drop_table(char * table_name){
 void add_employee(int cnt, EMPLOYEE ** ptr, char * empno, char * name, char * dept, int age, char * hiredate, char * sex , float salary){ 
 	if(cnt == 0){
 		cnt ++;
-		strcpy(ptr[0]->EMPNO, empno);
+		strcpy_s(ptr[0]->EMPNO, empno);
 		strcpy(ptr[0]->NAME, name);
 		strcpy(ptr[0]->DEPT, dept);
 		ptr[0]->AGE = age;
@@ -179,7 +179,7 @@ int LoadDataForEmployees(struct q_block * p_q_blk, int row){
 	int query_stat;
 	char buff[1024];
 	int count = row;
-    int i ;
+    int i = 0 ;
 
 	MYSQL_RES * sql_result;
     MYSQL_ROW sql_row;
@@ -200,15 +200,21 @@ int LoadDataForEmployees(struct q_block * p_q_blk, int row){
 	EMPLOYEE * datas = p_q_blk->p_employee->employees;
 
 	while((sql_row = mysql_fetch_row(sql_result)) != NULL)
-	{
-		printf("%s \n", sql_row[1]);
-		strcpy(datas[i].EMPNO, sql_row[0]);
-		strcpy(datas[i].NAME, sql_row[1]);
-		strcpy(datas[i].DEPT, sql_row[2]);
+	{	
+		char tempkey[100];
+		memset(tempkey,0x00,sizeof(tempkey));
+		//printf("%s \n", sql_row[1]);
+		strcpy_s(datas[i].EMPNO, SIZE_EMPNO, sql_row[0]);
+		strcpy_s(datas[i].NAME, SIZE_NAME, sql_row[1]);
+		strcpy_s(datas[i].DEPT, SIZE_DEPT, sql_row[2]);
 		datas[i].AGE = (int)sql_row[3];
-		strcpy(datas[i].HIREDATE, sql_row[4]);
-		strcpy(datas[i].SEX, sql_row[5]);
+		strcpy_s(datas[i].HIREDATE,SIZE_HIREDATE,  sql_row[4]);
+		strcpy_s(datas[i].SEX, SIZE_SEX,  sql_row[5]);
 		datas[i].SALARY = (int)sql_row[6];
+		strcpy_s(tempkey,SIZE_EMPNO,datas[i].EMPNO);
+		strcat_s(tempkey, "#");
+		strcat_s(tempkey,datas[i].NAME);
+		strcpy_s(datas[i].KEY,SIZE_KEY, tempkey);
 	i++;	
 	}
 
@@ -238,14 +244,17 @@ int main(){
 	add_employee(0, ptr, no,nm,dep,28,date,sex,200);
 	add_employee(1, ptr, "2","hyen","si",31,"191024","m",300);
 	
-	printf("이름 %s\n", (*ptr)[0].NAME);
-	printf("이름 %s\n", (*ptr)[1].NAME);
+	//printf("이름 %s\n", (*ptr)[0].NAME);
+	//printf("이름 %s\n", (*ptr)[1].NAME);
+	//printf("key %s\n", (*ptr)[1].KEY);
 	
+
 	insert_table_employee(*ptr,2);
 	select_table_employee(TABLE_NAME_EMPLOYEE);
 	
 	struct q_block * q_blk;
 	LoadDataForEmployees(q_blk, 2);
-	printf("%s", q_blk->p_employee->employees[0].NAME);
- return 0;
+	printf("%s\n", q_blk->p_employee->employees[0].NAME);
+	printf("%s\n", q_blk->p_employee->employees[0].KEY);
+	return 0;
 }
