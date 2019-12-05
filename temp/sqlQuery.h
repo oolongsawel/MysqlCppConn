@@ -22,4 +22,23 @@
 
 #define SQL_SELECT_DATA_EMPLOYEE "SELECT EMPNO, NAME, DEPT, HIREDATE, SEX, SALARY FROM %s "    
 
+
+//NEW_EMPLOYEE 신입직원테이블
+#define SQL_CREATE_TABLE_NEW_EMPLOYEE "CREATE TABLE %s \
+    (EMPNO      CHAR(6)         NOT NULL,\
+    NAME        VARCHAR(12)     NOT NULL,\
+    DEPT        CHAR(10)                 ,\
+    AGE         INT                 ,\
+    HIREDATE    DATE                    ,\
+    SEX         CHAR(1)                 ,\
+    SALARY      DECIMAL(9,2)            ,\
+    PRIMARY KEY (EMPNO)) ENGINE = myISAM DEFAULT CHARSET = utf8"
+
+#define SQL_INSERT_DATA_NEW_EMPLOYEE "INSERT INTO %s \
+    (EMPNO, NAME, DEPT, AGE, HIREDATE, SEX, SALARY) values \
+('%s', '%s', '%s',%d, sysdate(), '%s', %f)"
+
+#define SQL_SELECT_DATA_NEW_EMPLOYEE "SELECT EMPNO, NAME, DEPT, HIREDATE, SEX, SALARY FROM %s "    
+
+
 #endif
