@@ -95,7 +95,7 @@ int drop_table(char * table_name){
 
     //기존테이블 삭제
     memset(buff,0x00,sizeof(buff));
-    sprintf(buff, SQL_DROP_TABLE, table_name);
+    sprintf_s(buff, SQL_DROP_TABLE, table_name);
     query_stat = mysql_query(connection, buff);
 
     if(query_stat != 0){
@@ -108,16 +108,16 @@ int drop_table(char * table_name){
     return 0;
 }
 
-
+	
 void add_employee(int cnt, EMPLOYEE ** ptr, char * empno, char * name, char * dept, int age, char * hiredate, char * sex , float salary){ 
 	if(cnt == 0){
 		cnt ++;
-		strcpy_s(ptr[0]->EMPNO, empno);
-		strcpy(ptr[0]->NAME, name);
-		strcpy(ptr[0]->DEPT, dept);
+		strcpy_s(ptr[0]->EMPNO, SIZE_EMPNO, empno);
+		strcpy_s(ptr[0]->NAME, SIZE_NAME, name);
+		strcpy_s(ptr[0]->DEPT, SIZE_DEPT, dept);
 		ptr[0]->AGE = age;
-		strcpy(ptr[0]->HIREDATE, hiredate);
-		strcpy(ptr[0]->SEX, sex);
+		strcpy_s(ptr[0]->HIREDATE,SIZE_HIREDATE, hiredate);
+		strcpy_s(ptr[0]->SEX, SIZE_SEX, sex);
 		ptr[0]->SALARY = salary;
 		
 	} else {
@@ -127,12 +127,12 @@ void add_employee(int cnt, EMPLOYEE ** ptr, char * empno, char * name, char * de
 		//기존값을 임시배열에 복사
 		memcpy(temp_list,(*ptr), sizeof(EMPLOYEE) * (cnt-1));
 
-		strcpy(temp_list[cnt-1].EMPNO, empno);
-		strcpy(temp_list[cnt-1].NAME, name);
-		strcpy(temp_list[cnt-1].DEPT, dept);
+		strcpy_s(temp_list[cnt-1].EMPNO, SIZE_EMPNO, empno);
+		strcpy_s(temp_list[cnt-1].NAME,SIZE_NAME , name);
+		strcpy_s(temp_list[cnt-1].DEPT, SIZE_DEPT, dept);
 		temp_list[cnt-1].AGE = age;
-		strcpy(temp_list[cnt-1].HIREDATE, hiredate);
-		strcpy(temp_list[cnt-1].SEX, sex);
+		strcpy_s(temp_list[cnt-1].HIREDATE, SIZE_HIREDATE, hiredate);
+		strcpy_s(temp_list[cnt-1].SEX, SIZE_SEX, sex);
 		temp_list[cnt-1].SALARY = salary;
 			
 		//메모리재할당
@@ -148,7 +148,6 @@ int select_table_employee(char * table_name){
 	int query_stat;
 	char buff[1024];
 	int count = 0;
-    int i ;
 
 	MYSQL_RES * sql_result;
     MYSQL_ROW sql_row;
@@ -224,6 +223,42 @@ int LoadDataForEmployees(struct q_block * p_q_blk, int row){
 	return 0;
 }
 
+
+//배열에서 PK 인덱스찾기
+template <typename ARRAY_T> 
+int findKeyIndex(char * key, ARRAY_T * arrP){
+
+	int nStartIndex = -1;
+	int nArraySize = 0;
+
+	if(arrP == NULL) return -1;
+	nArraySize = arrP->row;
+	if(nArraySize < 1) return -1;
+
+	int low = 0;
+	int high = nArraySize -1;
+	int mid;
+	int nCompVal;
+
+	while(low <= high){
+		mid = (low + high) >> 1;
+
+		nCompVal = strcmp(key, arrP->employees[mid].KEY);
+
+		//찾으려는 값이 중간값보다 작다면
+		if(nCompVal < 0) high = mid - 1;
+		//찾으려는 값이 중간값보다 크다면
+		if(nCompVal > 0) low = mid + 1;
+		//값을 찾은경우
+		else{
+		nStartIndex = mid;
+		break;
+		}
+	}
+	
+	return nStartIndex;
+}
+
 int main(){
 	connect();
 	drop_table(TABLE_NAME_EMPLOYEE);
@@ -256,5 +291,12 @@ int main(){
 	LoadDataForEmployees(q_blk, 2);
 	printf("%s\n", q_blk->p_employee->employees[0].NAME);
 	printf("%s\n", q_blk->p_employee->employees[0].KEY);
+
+	int idx_Emp = -1;
+	char * tempkey = "001#sunyoung";
+
+	idx_Emp = findKeyIndex(tempkey, q_blk->p_employee);
+	printf("인덱스는... %d\n", idx_Emp);
+
 	return 0;
 }
